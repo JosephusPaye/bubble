@@ -33,7 +33,7 @@
       ".(js|jsx)": "babel-jest"
     }
   },
-  "name": "bubble",
+  "name": "@JosephusPaye/bubble",
   "author": "Josephus Paye II",
   "module": "dist/bubble.esm.js",
   "devDependencies": {
