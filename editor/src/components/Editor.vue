@@ -1,5 +1,8 @@
 <template>
-  <div class="flex flex-col border-2 border-transparent bg-gray-400" :class="{ 'border-red-500': invalid }">
+  <div
+    class="flex flex-col border-2 border-transparent bg-gray-400"
+    :class="{ 'border-red-500': invalid }"
+  >
     <textarea
       autofocus
       class="w-full flex-grow font-mono p-3 bg-transparent whitespace-pre resize-none outline-none"
