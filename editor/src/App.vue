@@ -31,17 +31,48 @@ export default {
   },
   data() {
     return {
-      code: '',
+      code: `
+node:myLoad "Load"
+node:myProcess "Process" [Runs the database queries]
+branch "Question?" {
+  when "Yes" {
+    node "Yes 1"
+    branch:mySecondBranch "Another question?" [Yep, you can nest branches] {
+      when "Yes" { node "Do something" }
+      when "No" { node "Do somethin else" }
+    }
+  }
+  when "No" {
+    node "No 1"
+    node "No 2"
+  }
+}
+
+appearance {
+  myLoad {
+    shape: ellipse;
+    style: 1, +fill, -border, -shadow;
+  }
+  myProcess { shape: rectangle }
+  mySecondBranch { style: 3 }
+}
+      `.trim(),
       ast: {},
       errors: [],
     };
   },
   watch: {
     code(input) {
-      parse(this.code, this.onParse);
+      this.parseCode();
     },
   },
+  mounted() {
+    this.parseCode();
+  },
   methods: {
+    parseCode() {
+      parse(this.code, this.onParse);
+    },
     onParse({ ast, valid, errors }) {
       if (valid) {
         this.ast = ast;
