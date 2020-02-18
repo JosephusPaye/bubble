@@ -8,7 +8,7 @@ This project is part of [#CreateWeekly](https://dev.to/josephuspaye/createweekly
 
 ## Delivered in parts
 
-- The first part, delivered in Week 6, is the [language grammar](src/peg/bubble.pegjs) and [corresponding parser](src/peg/generated-parser.js).
+- The first part, delivered in Week 6, is the [language grammar](lib/src/peg/bubble.pegjs) and [corresponding parser](lib/src/peg/generated-parser.js).
 
 ## Contributing
 
