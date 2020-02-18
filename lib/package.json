@@ -4,7 +4,6 @@
   "version": "0.1.0",
   "license": "MIT",
   "main": "dist/index.js",
-  "module": "dist/bubble.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
@@ -12,7 +11,7 @@
   "scripts": {
     "start": "tsdx watch",
     "generate-parser": "pegjs -o src/peg/generated-parser.js src/peg/bubble.pegjs",
-    "build": "tsdx build --format cjs,esm,umd",
+    "build": "tsdx build --format cjs,umd",
     "test": "tsdx test",
     "lint": "tsdx lint",
     "prepare": "tsdx build"
