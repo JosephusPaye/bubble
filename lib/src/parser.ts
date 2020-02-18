@@ -1,3 +1,3 @@
-import parser from './peg/generated-parser';
+import * as parser from './peg/generated-parser';
 
 export { parser };
