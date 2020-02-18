@@ -6,7 +6,6 @@
 </template>
 
 <script>
-// eslint-disable-next-line
 import debounce from 'debounce';
 import parser from 'bubble';
 
@@ -47,9 +46,8 @@ export default {
       if (valid) {
         this.ast = ast;
         this.errors = [];
-        window.ast = ast;
       } else {
-        console.error(errors);
+        // console.error(errors);
         this.errors = errors;
       }
     },

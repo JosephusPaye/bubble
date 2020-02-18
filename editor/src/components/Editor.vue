@@ -13,7 +13,7 @@
     ></textarea>
     <div class="bg-red-300" v-if="invalid">
       <div class="py-4 px-5" :key="index" v-for="(error, index) in errors">
-        {{ error }}
+        {{ errorToString(error) }}
       </div>
     </div>
   </div>
@@ -34,6 +34,10 @@ export default {
   methods: {
     focus() {
       this.$refs.input && this.$refs.input.focus();
+    },
+    errorToString(error) {
+      const { line, column } = error.location.start;
+      return `Ln ${line}, Col ${column}: ${error.message}`;
     },
   },
 };
