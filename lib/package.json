@@ -1,7 +1,10 @@
 {
+  "name": "bubble",
+  "author": "Josephus Paye II",
   "version": "0.1.0",
   "license": "MIT",
   "main": "dist/index.js",
+  "module": "dist/bubble.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
@@ -33,9 +36,6 @@
       ".(js|jsx)": "babel-jest"
     }
   },
-  "name": "@JosephusPaye/bubble",
-  "author": "Josephus Paye II",
-  "module": "dist/bubble.esm.js",
   "devDependencies": {
     "@types/jest": "^25.1.2",
     "@types/pegjs": "^0.10.1",
