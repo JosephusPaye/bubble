@@ -1,38 +1,56 @@
 import { ParserOptions, PegjsError, LocationRange, ExpectedItem } from 'pegjs';
 
 declare namespace BubbleParser {
+  export interface NodeId {
+    location: LocationRange;
+    value: string;
+  }
+
   export interface NormalNode {
+    location: LocationRange;
     type: 'normal';
-    id: string | null;
+    id: NodeId | null;
     label: string;
     body: string | null;
   }
 
   export interface BranchNode {
+    location: LocationRange;
     type: 'normal';
-    id: string | null;
+    id: NodeId | null;
     label: string;
     body: string | null;
-    cases: Case;
+    cases: Case[];
   }
 
   export interface Case {
+    location: LocationRange;
     label: string;
     nodes: Node[];
   }
 
-  export type Node = BranchNode | NormalNode;
+  export type Node = NormalNode | BranchNode;
+
+  export interface NodeAppearanceSelector {
+    location: LocationRange;
+    type: 'element' | 'id';
+    value: string;
+  }
 
   export interface NodeAppearance {
-    nodeId: string;
+    selectors: NodeAppearanceSelector[];
     modifiers: NodeModifier[];
   }
 
-  export interface ShapeModifier {
+  export interface NodeShapeModifier {
+    location: LocationRange;
+    type: 'shape';
     shape: 'rectangle' | 'ellipse';
   }
 
-  export interface StyleModifier {
+  export interface NodeStyleModifier {
+    location: LocationRange;
+    type: 'style';
     style: NodeStyle;
   }
 
@@ -46,11 +64,19 @@ declare namespace BubbleParser {
     option: 'fill' | 'border' | 'shadow' | 'rounded';
   }
 
-  export type NodeModifier = ShapeModifier | StyleModifier;
+  export type NodeModifier = NodeShapeModifier | NodeStyleModifier;
 
   export interface AST {
     nodes: Node[];
-    appearance?: NodeAppearance[];
+    appearance?: {
+      location: LocationRange;
+      appearances: NodeAppearance[];
+    };
+    symbols: {
+      identifiers: Set<string>;
+      selectorLists: Array<string[]>;
+      selectors: Set<string>;
+    };
   }
 
   export function parse(input: string, options?: ParserOptions): AST;
