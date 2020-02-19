@@ -49,12 +49,13 @@ branch "Question?" {
 }
 
 appearance {
-  myLoad {
+  @myLoad,
+  @myProcess {
     shape: ellipse;
     style: 1, +fill, -border, -shadow;
   }
-  myProcess { shape: rectangle }
-  mySecondBranch { style: 3 }
+  node { shape: rectangle; }
+  branch { style: 3; }
 }
       `.trim(),
       ast: {},
