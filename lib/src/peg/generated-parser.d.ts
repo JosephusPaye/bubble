@@ -1,6 +1,6 @@
 import { ParserOptions, PegjsError, LocationRange, ExpectedItem } from 'pegjs';
 
-declare namespace BubbleParser {
+declare namespace Bubble {
   export interface NodeId {
     location: LocationRange;
     value: string;
@@ -16,7 +16,7 @@ declare namespace BubbleParser {
 
   export interface BranchNode {
     location: LocationRange;
-    type: 'normal';
+    type: 'branch';
     id: NodeId | null;
     label: string;
     body: string | null;
@@ -66,17 +66,20 @@ declare namespace BubbleParser {
 
   export type NodeModifier = NodeShapeModifier | NodeStyleModifier;
 
+  export interface Appearance {
+    location: LocationRange;
+    appearances: NodeAppearance[];
+  }
+
+  export interface Symbols {
+    identifiers: Set<string>;
+    selectorLists: Array<string[]>;
+    selectors: Set<string>;
+  }
   export interface AST {
     nodes: Node[];
-    appearance?: {
-      location: LocationRange;
-      appearances: NodeAppearance[];
-    };
-    symbols: {
-      identifiers: Set<string>;
-      selectorLists: Array<string[]>;
-      selectors: Set<string>;
-    };
+    appearance?: Appearance;
+    symbols: Symbols;
   }
 
   export function parse(input: string, options?: ParserOptions): AST;
@@ -98,4 +101,4 @@ declare namespace BubbleParser {
   }
 }
 
-export = BubbleParser;
+export = Bubble;
