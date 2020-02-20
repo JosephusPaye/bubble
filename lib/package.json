@@ -1,5 +1,5 @@
 {
-  "name": "bubble",
+  "name": "@JosephusPaye/bubble",
   "author": "Josephus Paye II",
   "version": "0.1.0",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "start": "tsdx watch",
     "generate-parser": "pegjs -o src/peg/generated-parser.js src/peg/bubble.pegjs && node src/peg/transform-exports.js",
     "build": "tsdx build --format cjs,umd",
-    "test": "tsdx test",
+    "test": "echo \"No tests yet\"",
     "lint": "tsdx lint",
     "prepare": "tsdx build"
   },
