@@ -9,6 +9,7 @@ This project is part of [#CreateWeekly](https://dev.to/josephuspaye/createweekly
 ## Delivered in parts
 
 - The first part, delivered in Week 6, is the [language grammar](lib/src/peg/bubble.pegjs) and [corresponding parser](lib/src/peg/generated-parser.js).
+- The second part, delivered in Week 7, is the [semantic analyser](lib/src/analyser.ts) and [basic editor](editor/).
 
 ## Contributing
 
@@ -16,8 +17,10 @@ See [contribution guide](CONTRIBUTING.md).
 
 ## To-Do
 
--  [ ] Add a basic editor for testing the parser
--  [ ] Part 2: Semantic Analysis of AST
+- [x] Add a basic editor for testing the parser
+- [x] Part 2: Semantic Analysis of AST
+- [ ] Add Monaco editor with syntax highlighting and inline errors/warnings
+- [ ] Part 3: Style resolution and inital code generation
 
 ## Licence
 
