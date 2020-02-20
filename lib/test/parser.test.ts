@@ -1,11 +1,10 @@
-import { parser } from '../src';
+import * as parser from '../src';
 
 function parse(input: string) {
-  console.log('parsing', input);
   try {
     return parser.parse(input);
   } catch (error) {
-    console.log(error, error.location);
+    // console.log(error, error.location);
     throw error;
   }
 }
@@ -13,6 +12,7 @@ function parse(input: string) {
 describe('parser', () => {
   it('has the expected API', () => {
     expect(typeof parser.parse).toBe('function');
+    expect(typeof parser.analyse).toBe('function');
     expect(typeof parser.SyntaxError).toBe('function');
   });
 
