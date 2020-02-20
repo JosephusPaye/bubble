@@ -75,7 +75,7 @@ function analyseAppearance(ast: Bubble.AST, results: AnalysisResult) {
       if (existingSelectors.has(selectorName)) {
         results.warnings.push({
           type: 'warning',
-          message: 'This selector is a duplicate and can be removed.',
+          message: `The selector "${selectorName}" is a duplicate and can be removed.`,
           location: selector.location,
         });
       } else {
@@ -135,7 +135,7 @@ function nodeIdIsReferencedInAppearance(
     return {
       type: 'warning',
       message:
-        'This identifier is not referenced in appearance and can be removed.',
+        `The identifier "${node.id.value}" is not referenced in appearance and can be removed.`,
       location: node.id.location,
     };
   }
@@ -183,7 +183,7 @@ function branchHasAtLeastOneCase(
   if (branch.cases.length === 0) {
     return {
       type: 'error',
-      message: 'This branch should have at least one case.',
+      message: 'A branch must have at least one case.',
       location: branch.location,
     };
   }
@@ -196,7 +196,7 @@ function branchHasAtLeastTwoCases(
   if (branch.cases.length < 2) {
     return {
       type: 'warning',
-      message: 'This branch should have at least two cases.',
+      message: 'A branch should have at least two cases.',
       location: branch.location,
     };
   }
@@ -209,7 +209,7 @@ function branchCaseHasAtLeastOneNode(
   if (_case.nodes.length === 0) {
     return {
       type: 'error',
-      message: 'This branch case must have at least one node.',
+      message: 'Branch cases must have at least one node.',
       location: _case.location,
     };
   }
@@ -227,7 +227,7 @@ function idSelectorRefersToAnExistingElement(
     return {
       type: 'warning',
       message:
-        'This identifier does not exist in the graph and can be removed.',
+        `The identifier "${selector.value}" does not exist in the graph and can be removed.`,
       location: selector.location,
     };
   }
