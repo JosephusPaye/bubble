@@ -1,6 +1,6 @@
 # Bubble
 
-💭 Bubble is an experimental text to flowchart language.
+💭 Bubble is an experimental text to flowchart language. <https://bubblelang.netlify.com/>
 
 ![Promotional image of Bubble](./promo-image.png)
 
@@ -9,7 +9,7 @@ This project is part of [#CreateWeekly](https://dev.to/josephuspaye/createweekly
 ## Delivered in parts
 
 - The first part, delivered in Week 6, is the [language grammar](lib/src/peg/bubble.pegjs) and [corresponding parser](lib/src/peg/generated-parser.js).
-- The second part, delivered in Week 7, is the [semantic analyser](lib/src/analyser.ts) and [basic editor](editor/).
+- The second part, delivered in Week 7, is the [semantic analyser](lib/src/analyser.ts) and [basic editor](https://bubblelang.netlify.com/).
 
 ## Contributing
 
