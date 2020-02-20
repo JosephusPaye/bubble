@@ -7,7 +7,7 @@
 
 <script>
 import debounce from 'debounce';
-import * as parser from 'bubble';
+import * as parser from '@josephuspaye/bubble';
 
 import Editor from './components/Editor.vue';
 import Preview from './components/Preview.vue';
@@ -37,7 +37,7 @@ branch "Question?" {
     node "Yes 1"
     branch:mySecondBranch "Another question?" [Yep, you can nest branches] {
       when "Yes" { node "Do something" }
-      when "No" { node "Do somethin else" }
+      when "No" {  }
     }
   }
   when "No" {
@@ -46,13 +46,16 @@ branch "Question?" {
   }
 }
 
+node "" []
+branch "" [] {}
+
 appearance {
   @myLoad,
   @myProcess {
     shape: ellipse;
     style: 1, +fill, -border, -shadow;
   }
-  node { shape: rectangle; }
+  @fake, node { shape: rectangle; }
   branch { style: 3; }
 }
       `.trim(),
