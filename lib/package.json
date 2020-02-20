@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "start": "tsdx watch",
-    "generate-parser": "pegjs -o src/peg/generated-parser.js src/peg/bubble.pegjs",
+    "generate-parser": "pegjs -o src/peg/generated-parser.js src/peg/bubble.pegjs && node src/peg/transform-exports.js",
     "build": "tsdx build --format cjs,umd",
     "test": "tsdx test",
     "lint": "tsdx lint",
