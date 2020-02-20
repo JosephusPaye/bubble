@@ -1,18 +1,16 @@
 <template>
   <div id="app" class="h-screen grid grid-rows-1 grid-cols-2">
     <Editor v-model="code" :errors="errors" />
-    <Preview :ast="ast" />
+    <Preview :ast="ast" :analysis="analysis" />
   </div>
 </template>
 
 <script>
 import debounce from 'debounce';
-import parser from 'bubble';
+import * as parser from 'bubble';
 
 import Editor from './components/Editor.vue';
 import Preview from './components/Preview.vue';
-
-console.log(parser);
 
 const parse = debounce((input, callback) => {
   try {
@@ -59,6 +57,7 @@ appearance {
 }
       `.trim(),
       ast: {},
+      analysis: {},
       errors: [],
     };
   },
@@ -78,6 +77,7 @@ appearance {
       if (valid) {
         this.ast = ast;
         this.errors = [];
+        this.analysis = parser.analyse(ast);
       } else {
         // console.error(errors);
         this.errors = errors;

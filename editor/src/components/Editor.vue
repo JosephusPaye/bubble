@@ -1,7 +1,7 @@
 <template>
   <div
     class="flex flex-col border-2 border-transparent bg-gray-400"
-    :class="{ 'border-red-500': invalid }"
+    :class="{ 'border-red-300': invalid }"
   >
     <textarea
       autofocus
@@ -36,6 +36,10 @@ export default {
       this.$refs.input && this.$refs.input.focus();
     },
     errorToString(error) {
+      if (!error.location) {
+        console.log(error);
+        return error.message;
+      }
       const { line, column } = error.location.start;
       return `Ln ${line}, Col ${column}: ${error.message}`;
     },
