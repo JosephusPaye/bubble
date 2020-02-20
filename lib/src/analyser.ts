@@ -134,8 +134,7 @@ function nodeIdIsReferencedInAppearance(
   if (node.id && ast.symbols.selectors.has('@' + node.id.value) === false) {
     return {
       type: 'warning',
-      message:
-        `The identifier "${node.id.value}" is not referenced in appearance and can be removed.`,
+      message: `The identifier "${node.id.value}" is not referenced in appearance and can be removed.`,
       location: node.id.location,
     };
   }
@@ -226,8 +225,7 @@ function idSelectorRefersToAnExistingElement(
   ) {
     return {
       type: 'warning',
-      message:
-        `The identifier "${selector.value}" does not exist in the graph and can be removed.`,
+      message: `The identifier "${selector.value}" does not exist in the graph and can be removed.`,
       location: selector.location,
     };
   }
