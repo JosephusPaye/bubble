@@ -12,11 +12,9 @@
       @editorDidMount="editorDidMount"
     />
     <div class="bg-red-300" v-if="invalid">
-      <div
-        class="py-4 px-5"
-        :key="index"
-        v-for="(error, index) in errors"
-      >{{ errorToString(error) }}</div>
+      <div class="py-4 px-5" :key="index" v-for="(error, index) in errors">
+        {{ errorToString(error) }}
+      </div>
     </div>
   </div>
 </template>
