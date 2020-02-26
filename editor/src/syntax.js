@@ -82,6 +82,9 @@ export const syntaxDefinition = {
       [/\]/, { token: 'string.quote', bracket: '@close', next: '@pop' }],
     ],
 
-    whitespace: [[/[ \t\r\n]+/, 'white'], [/\/\/.*$/, 'comment']],
+    whitespace: [
+      [/[ \t\r\n]+/, 'white'],
+      [/\/\/.*$/, 'comment'],
+    ],
   },
 };
