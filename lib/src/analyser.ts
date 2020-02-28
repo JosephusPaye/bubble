@@ -40,7 +40,6 @@ function analyseNodes(
 
     if (node.type === 'branch') {
       runAnalysis(branchHasAtLeastOneCase(node), results);
-      runAnalysis(branchHasAtLeastTwoCases(node), results);
       analyseBranchCases(node, ast, results);
     }
   }
@@ -179,23 +178,10 @@ function nodeBodyIsNotEmpty(node: Bubble.Node): AnalysisMessage | undefined {
 function branchHasAtLeastOneCase(
   branch: Bubble.BranchNode
 ): AnalysisMessage | undefined {
-  if (branch.cases.length === 0) {
-    return {
-      type: 'error',
-      message: 'A branch must have at least one case.',
-      location: branch.location,
-    };
-  }
-  return undefined;
-}
-
-function branchHasAtLeastTwoCases(
-  branch: Bubble.BranchNode
-): AnalysisMessage | undefined {
   if (branch.cases.length < 2) {
     return {
-      type: 'warning',
-      message: 'A branch should have at least two cases.',
+      type: 'error',
+      message: 'A branch must have at least two cases.',
       location: branch.location,
     };
   }
