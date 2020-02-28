@@ -34,13 +34,13 @@ declare namespace Bubble {
   }
 
   export interface NodeLabel {
-    location: LocationRange,
-    value: string,
+    location: LocationRange;
+    value: string;
   }
 
   export interface NodeBody {
-    location: LocationRange,
-    value: string,
+    location: LocationRange;
+    value: string;
   }
 
   export interface Case {
