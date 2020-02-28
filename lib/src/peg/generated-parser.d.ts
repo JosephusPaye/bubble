@@ -1,35 +1,63 @@
 import { ParserOptions, PegjsError, LocationRange, ExpectedItem } from 'pegjs';
 
 declare namespace Bubble {
-  export interface NodeId {
-    location: LocationRange;
-    value: string;
+  export function parse(input: string, options?: ParserOptions): AST;
+
+  export interface AST {
+    nodes: Node[];
+    appearance?: Appearance;
+    symbols: Symbols;
   }
+
+  export type Node = NormalNode | BranchNode;
 
   export interface NormalNode {
     location: LocationRange;
     type: 'normal';
     id: NodeId | null;
-    label: string;
-    body: string | null;
+    label: NodeLabel;
+    body: NodeBody | null;
   }
 
   export interface BranchNode {
     location: LocationRange;
     type: 'branch';
     id: NodeId | null;
-    label: string;
-    body: string | null;
+    label: NodeLabel;
+    body: NodeBody | null;
     cases: Case[];
+  }
+
+  export interface NodeId {
+    location: LocationRange;
+    value: string;
+  }
+
+  export interface NodeLabel {
+    location: LocationRange,
+    value: String,
+  }
+
+  export interface NodeBody {
+    location: LocationRange,
+    value: String,
   }
 
   export interface Case {
     location: LocationRange;
-    label: string;
+    label: NodeLabel;
     nodes: Node[];
   }
 
-  export type Node = NormalNode | BranchNode;
+  export interface Appearance {
+    location: LocationRange;
+    appearances: NodeAppearance[];
+  }
+
+  export interface NodeAppearance {
+    selectors: NodeAppearanceSelector[];
+    modifiers: NodeModifier[];
+  }
 
   export interface NodeAppearanceSelector {
     location: LocationRange;
@@ -37,10 +65,7 @@ declare namespace Bubble {
     value: string;
   }
 
-  export interface NodeAppearance {
-    selectors: NodeAppearanceSelector[];
-    modifiers: NodeModifier[];
-  }
+  export type NodeModifier = NodeShapeModifier | NodeStyleModifier;
 
   export interface NodeShapeModifier {
     location: LocationRange;
@@ -64,25 +89,11 @@ declare namespace Bubble {
     option: 'fill' | 'border' | 'shadow' | 'rounded';
   }
 
-  export type NodeModifier = NodeShapeModifier | NodeStyleModifier;
-
-  export interface Appearance {
-    location: LocationRange;
-    appearances: NodeAppearance[];
-  }
-
   export interface Symbols {
     identifiers: Set<string>;
     selectorLists: Array<string[]>;
     selectors: Set<string>;
   }
-  export interface AST {
-    nodes: Node[];
-    appearance?: Appearance;
-    symbols: Symbols;
-  }
-
-  export function parse(input: string, options?: ParserOptions): AST;
 
   export class SyntaxError implements PegjsError {
     name: string;

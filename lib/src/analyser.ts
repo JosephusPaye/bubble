@@ -35,7 +35,7 @@ function analyseNodes(
 ) {
   for (const node of nodes) {
     runAnalysis(nodeIdIsReferencedInAppearance(node, ast), results);
-    runAnalysis(labelIsNotEmpty(node, node.type), results);
+    runAnalysis(labelIsNotEmpty(node.label, node.type), results);
     runAnalysis(nodeBodyIsNotEmpty(node), results);
 
     if (node.type === 'branch') {
@@ -51,7 +51,7 @@ function analyseBranchCases(
   results: AnalysisResult
 ) {
   for (const _case of node.cases) {
-    runAnalysis(labelIsNotEmpty(_case, 'case'), results);
+    runAnalysis(labelIsNotEmpty(_case.label, 'case'), results);
     runAnalysis(branchCaseHasAtLeastOneNode(_case), results);
     analyseNodes(_case.nodes, ast, results);
   }
@@ -141,10 +141,10 @@ function nodeIdIsReferencedInAppearance(
 }
 
 function labelIsNotEmpty(
-  element: { label: string; location: LocationRange },
+  label: Bubble.NodeLabel,
   type: string
 ): AnalysisMessage | undefined {
-  if (element.label.trim().length === 0) {
+  if (label.value.trim().length === 0) {
     const names: { [key: string]: string } = {
       normal: 'node',
       branch: 'branch',
@@ -153,14 +153,14 @@ function labelIsNotEmpty(
     return {
       type: 'warning',
       message: `The ${names[type] || type} label should not be empty.`,
-      location: element.location,
+      location: label.location,
     };
   }
   return undefined;
 }
 
 function nodeBodyIsNotEmpty(node: Bubble.Node): AnalysisMessage | undefined {
-  if (node.body && node.body.trim().length === 0) {
+  if (node.body && node.body.value.trim().length === 0) {
     const names = {
       normal: 'node',
       branch: 'branch',
@@ -169,7 +169,7 @@ function nodeBodyIsNotEmpty(node: Bubble.Node): AnalysisMessage | undefined {
     return {
       type: 'warning',
       message: `The ${names[node.type]} body is empty and can be removed.`,
-      location: node.location,
+      location: node.body.location,
     };
   }
   return undefined;
@@ -194,7 +194,7 @@ function branchCaseHasAtLeastOneNode(
   if (_case.nodes.length === 0) {
     return {
       type: 'error',
-      message: 'Branch cases must have at least one node.',
+      message: 'A branch case must have at least one node.',
       location: _case.location,
     };
   }
