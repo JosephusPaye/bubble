@@ -7,14 +7,14 @@
         @click="view = 'ast'"
       >AST</button>
       <button
-        class="px-4 py-1"
+        class="px-4 py-1 ml-px"
         :class="[
           view === 'analysis' ? 'bg-blue-600 text-white' : 'bg-gray-300',
         ]"
         @click="view = 'analysis'"
       >Analysis</button>
       <button
-        class="px-4 py-1"
+        class="px-4 py-1 ml-px"
         :class="[
           view === 'style-tree' ? 'bg-blue-600 text-white' : 'bg-gray-300',
         ]"

@@ -4,7 +4,7 @@
     class="h-screen text-sm grid grid-rows-2 grid-cols-1 lg:text-base lg:grid-rows-1 lg:grid-cols-2 bg-gray-500 gap-px"
   >
     <Editor v-model="code" :errors="errors" :analysis="analysis" />
-    <Preview :ast="ast" :analysis="analysis" />
+    <Preview :ast="ast" :style-tree="styleTree" :analysis="analysis" />
   </div>
 </template>
 
@@ -17,7 +17,7 @@ import Preview from './components/Preview.vue';
 
 const parse = debounce((input, callback) => {
   try {
-    const ast = parser.parse(input);
+    const ast = bubble.parse(input);
     callback({ valid: true, ast });
   } catch (err) {
     callback({ valid: false, errors: [err] });
@@ -58,12 +58,18 @@ appearance {
     shape: ellipse;
     style: 1, +fill, -border, -shadow;
   }
+
+  @myProcess {
+    style: 2;
+  }
+
   @fake, node { shape: rectangle; }
   branch { style: 3; }
 }
       `.trim(),
       ast: {},
       analysis: {},
+      styleTree: [],
       errors: [],
     };
   },
@@ -83,9 +89,10 @@ appearance {
       if (valid) {
         this.ast = ast;
         this.errors = [];
-        this.analysis = parser.analyse(ast);
+        this.analysis = bubble.analyse(ast);
+        this.styleTree = bubble.resolveStyles(ast);
       } else {
-        // console.error(errors);
+        console.error('Parse error', errors);
         this.errors = errors;
       }
     },

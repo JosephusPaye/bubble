@@ -95,11 +95,13 @@ export function resolveStyles(ast: Bubble.AST) {
             style.styleId = modifier.style.id;
             if (modifier.style.options) {
               modifier.style.options.forEach(option => {
-                style.styleOptions?.set(option.type, option);
+                style.styleOptions?.set(option.option, option);
               });
             }
           }
         });
+
+        allStyles.set(selectorName, style);
       });
     });
   }
@@ -138,7 +140,7 @@ function astNodeToStyleNode(
         return {
           location: _case.location,
           uid: uid('bubble-case-'),
-          label: node.label.value,
+          label: _case.label.value,
           nodes: _case.nodes.map(node => astNodeToStyleNode(node, styles)),
         };
       }),
@@ -169,8 +171,8 @@ function getNodeStyles(node: Bubble.Node, styles: Map<string, ResolvedStyle>) {
 
 function overrideStyle(style: StyleNode['style'], newStyle?: ResolvedStyle) {
   if (newStyle) {
-    style.shape = style.shape ?? style.shape;
-    style.styleId = style.styleId ?? style.styleId;
+    style.shape = newStyle.shape ?? style.shape;
+    style.styleId = newStyle.styleId ?? style.styleId;
     style.styleOptions = newStyle.styleOptions
       ? Array.from(newStyle.styleOptions.values())
       : style.styleOptions;
