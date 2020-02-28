@@ -3,7 +3,7 @@
     id="app"
     class="h-screen text-sm grid grid-rows-2 grid-cols-1 lg:text-base lg:grid-rows-1 lg:grid-cols-2"
   >
-    <Editor v-model="code" :errors="errors" />
+    <Editor v-model="code" :errors="errors" :analysis="analysis" />
     <Preview :ast="ast" :analysis="analysis" />
   </div>
 </template>
