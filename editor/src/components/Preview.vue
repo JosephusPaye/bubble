@@ -1,6 +1,6 @@
 <template>
-  <div class="p-2 px-4 h-full overflow-y-auto bg-white">
-    <div class="flex mb-2">
+  <div class="h-full bg-white grid" style="grid-template-rows: 56px 1fr;">
+    <div class="flex p-3">
       <button
         class="px-4 py-1"
         :class="[view === 'ast' ? 'bg-blue-600 text-white' : 'bg-gray-300']"
@@ -18,7 +18,10 @@
         Analysis
       </button>
     </div>
-    <pre>{{ JSON.stringify(view === 'ast' ? ast : analysis, null, '  ') }}</pre>
+    <pre
+      class="bg-gray-200 p-3 overflow-y-auto overflow-x-auto text-sm"
+      v-text="JSON.stringify(view === 'ast' ? ast : analysis, null, '  ')"
+    ></pre>
   </div>
 </template>
 
