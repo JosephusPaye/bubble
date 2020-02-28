@@ -1,5 +1,9 @@
 <template>
-  <div class="flex flex-col border-2 border-transparent bg-gray-400 relative">
+  <div class="flex flex-col bg-white relative">
+    <div
+      class="invisible absolute pointer-events-none left-0 right-0 top-0 bottom-0"
+      ref="sizer"
+    ></div>
     <MonacoEditor
       class="editor w-full flex-grow"
       language="bubble"
@@ -20,8 +24,9 @@
 
 <script>
 import MonacoEditor from 'vue-monaco';
-import { syntaxDefinition } from '../syntax';
 import { completionsProvider } from '../completions';
+import { syntaxDefinition } from '../syntax';
+import RespondsToWindowResize from '../RespondsToWindowResize';
 
 export default {
   name: 'Editor',
@@ -29,6 +34,8 @@ export default {
   components: {
     MonacoEditor,
   },
+
+  mixins: [RespondsToWindowResize],
 
   props: {
     value: String,
@@ -72,8 +79,18 @@ export default {
     editorDidMount() {
       this.editor = this.$refs.editor.getEditor();
       this.monaco = this.$refs.editor.monaco;
+
       this.registerBubbleLanguage();
       this.updateEditorMarkers(this.analysis);
+
+      this.$on('window-resize', () => {
+        this.withEditor(editor => {
+          editor.layout({
+            width: this.$refs.sizer.offsetWidth,
+            height: this.$refs.sizer.offsetHeight,
+          });
+        });
+      });
     },
 
     registerBubbleLanguage() {

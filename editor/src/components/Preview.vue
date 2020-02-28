@@ -1,5 +1,5 @@
 <template>
-  <div class="p-2 px-4 h-full overflow-y-auto">
+  <div class="p-2 px-4 h-full overflow-y-auto bg-white">
     <div class="flex mb-2">
       <button
         class="px-4 py-1"
