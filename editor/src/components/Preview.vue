@@ -5,21 +5,27 @@
         class="px-4 py-1"
         :class="[view === 'ast' ? 'bg-blue-600 text-white' : 'bg-gray-300']"
         @click="view = 'ast'"
-      >AST</button>
+      >
+        AST
+      </button>
       <button
         class="px-4 py-1 ml-px"
         :class="[
           view === 'analysis' ? 'bg-blue-600 text-white' : 'bg-gray-300',
         ]"
         @click="view = 'analysis'"
-      >Analysis</button>
+      >
+        Analysis
+      </button>
       <button
         class="px-4 py-1 ml-px"
         :class="[
           view === 'style-tree' ? 'bg-blue-600 text-white' : 'bg-gray-300',
         ]"
         @click="view = 'style-tree'"
-      >Style Tree</button>
+      >
+        Style Tree
+      </button>
     </div>
     <pre
       class="bg-gray-200 p-3 overflow-y-auto overflow-x-auto text-sm"
