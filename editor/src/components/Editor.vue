@@ -12,7 +12,9 @@
       class="py-4 px-5 bg-red-400 absolute bottom-0 left-0 right-0"
       :key="index"
       v-for="(error, index) in errors"
-    >{{ errorToString(error) }}</div>
+    >
+      {{ errorToString(error) }}
+    </div>
   </div>
 </template>
 
@@ -37,8 +39,6 @@ export default {
   data() {
     return {
       code: this.value,
-      decorations: [],
-      appliedDecorations: [],
     };
   },
 
@@ -48,25 +48,17 @@ export default {
     },
 
     analysis(analysis) {
-      this.updateEditorDecorations(analysis);
-    },
-
-    decorations(newDecorations) {
-      this.withEditor(editor => {
-        this.appliedDecorations = editor
-          .getModel()
-          .deltaDecorations(this.appliedDecorations, newDecorations);
-      });
+      this.updateEditorMarkers(analysis);
     },
   },
 
   methods: {
-    onEditorChange(value) {
-      this.$emit('input', value);
-    },
-
     focus() {
       this.$refs.input && this.$refs.input.focus();
+    },
+
+    onEditorChange(value) {
+      this.$emit('input', value);
     },
 
     errorToString(error) {
@@ -80,9 +72,8 @@ export default {
     editorDidMount() {
       this.editor = this.$refs.editor.getEditor();
       this.monaco = this.$refs.editor.monaco;
-
       this.registerBubbleLanguage();
-      this.updateEditorDecorations(this.analysis);
+      this.updateEditorMarkers(this.analysis);
     },
 
     registerBubbleLanguage() {
@@ -96,47 +87,31 @@ export default {
       });
     },
 
-    updateEditorDecorations(analysis) {
-      if (!analysis || !analysis.errors) {
+    updateEditorMarkers(analysis) {
+      if (!analysis) {
         return;
       }
 
-      const messages = analysis.errors.concat(analysis.warnings);
+      const messages = []
+        .concat(analysis.errors || [])
+        .concat(analysis.warnings || []);
 
-      if (messages.length === 0) {
-        this.decorations = [];
-        return;
-      }
-
-      const decorations = [];
-
-      messages.forEach(message => {
-        decorations.push({
-          range: this.offsetToRange(
-            message.location.start,
-            message.location.end
-          ),
-          options: {
-            inlineClassName:
-              message.type === 'error'
-                ? 'bubble-inline-error'
-                : 'bubble-inline-warning',
-            linesDecorationsClassName:
-              message.type === 'error'
-                ? 'bubble-line-error'
-                : 'bubble-line-warning',
-            hoverMessage: { value: message.message },
-          },
+      this.withEditor((editor, monaco) => {
+        const markers = messages.map(({ location, message, type }) => {
+          return {
+            startLineNumber: location.start.line,
+            startColumn: location.start.column,
+            endLineNumber: location.end.line,
+            endColumn: location.end.column,
+            message,
+            severity:
+              type === 'error'
+                ? monaco.MarkerSeverity.Error
+                : monaco.MarkerSeverity.Warning,
+          };
         });
-      });
 
-      console.log('setting decorations', decorations);
-      this.decorations = decorations;
-    },
-
-    offsetToRange(start, end) {
-      return this.withMonaco(monaco => {
-        return new monaco.Range(start.line, start.column, end.line, end.column);
+        monaco.editor.setModelMarkers(editor.getModel(), 'bubble', markers);
       });
     },
 
@@ -153,20 +128,8 @@ export default {
         return;
       }
 
-      return callback(this.editor);
+      return callback(this.editor, this.monaco);
     },
   },
 };
 </script>
-
-<style lang="scss">
-.bubble-inline-error,
-.bubble-line-error {
-  background-color: red;
-}
-
-.bubble-inline-warning,
-.bubble-line-warning {
-  background-color: yellow;
-}
-</style>

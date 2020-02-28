@@ -22,7 +22,7 @@ const parse = debounce((input, callback) => {
   } catch (err) {
     callback({ valid: false, errors: [err] });
   }
-}, 200);
+}, 300);
 
 export default {
   name: 'App',

@@ -4,10 +4,11 @@ module.exports = {
   configureWebpack: {
     plugins: [
       new MonacoWebpackPlugin({
-        languages: ['css'],
+        languages: [],
         features: [
           '!gotoSymbol',
           '!codelens',
+          '!codeAction',
           '!colorDetector',
           'format',
           '!parameterHints',

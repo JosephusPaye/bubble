@@ -84,7 +84,7 @@ export const syntaxDefinition = {
 
     whitespace: [
       [/[ \t\r\n]+/, 'white'],
-      [/\/\/.*$/, 'comment'],
+      [/#.*$/, 'comment'],
     ],
   },
 };
