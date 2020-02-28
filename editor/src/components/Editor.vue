@@ -24,9 +24,9 @@
 
 <script>
 import MonacoEditor from 'vue-monaco';
-import { completionsProvider } from '../completions';
-import { syntaxDefinition } from '../syntax';
-import RespondsToWindowResize from '../RespondsToWindowResize';
+import { completionsProvider } from '../editor/completions';
+import { syntaxDefinition } from '../editor/syntax';
+import RespondsToWindowResize from '../mixins/RespondsToWindowResize';
 
 export default {
   name: 'Editor',
