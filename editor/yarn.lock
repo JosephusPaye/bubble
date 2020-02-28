@@ -817,10 +817,10 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
-"@josephuspaye/bubble@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@josephuspaye/bubble/-/bubble-0.1.0.tgz#57fe84053d34f7d121cea209a1ce8695a54ed384"
-  integrity sha512-58Pmg9lyDILPT5ILcrJyArXCfFgpUSPsSsnz2dMed0VESx5peZwEsDPPxUJR0edYS/wqELvzt2NndKkvulPAgg==
+"@josephuspaye/bubble@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@josephuspaye/bubble/-/bubble-0.2.0.tgz#487d815155f6aa44cadb5cfb6eca4ea386aeea29"
+  integrity sha512-ut6PCq+s5i1hKSDp62MgnGcPxArYaBsa2zBa+KEzar4LQHjPiHx/KV0rGv7lqVd7nAVVJzSkxtcNjbisn2zhrQ==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"

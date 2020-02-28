@@ -10,7 +10,7 @@
 
 <script>
 import debounce from 'debounce';
-import * as parser from '@josephuspaye/bubble';
+import * as bubble from '@josephuspaye/bubble';
 
 import Editor from './components/Editor.vue';
 import Preview from './components/Preview.vue';
