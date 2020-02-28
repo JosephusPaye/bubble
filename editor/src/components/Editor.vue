@@ -19,6 +19,7 @@
 <script>
 import MonacoEditor from 'vue-monaco';
 import { syntaxDefinition } from '../syntax';
+import { completionsProvider } from '../completions';
 
 export default {
   name: 'Editor',
@@ -88,6 +89,10 @@ export default {
       this.withMonaco(monaco => {
         monaco.languages.register({ id: 'bubble' });
         monaco.languages.setMonarchTokensProvider('bubble', syntaxDefinition);
+        monaco.languages.registerCompletionItemProvider(
+          'bubble',
+          completionsProvider
+        );
       });
     },
 
