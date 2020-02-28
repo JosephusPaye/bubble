@@ -35,12 +35,12 @@ declare namespace Bubble {
 
   export interface NodeLabel {
     location: LocationRange,
-    value: String,
+    value: string,
   }
 
   export interface NodeBody {
     location: LocationRange,
-    value: String,
+    value: string,
   }
 
   export interface Case {
@@ -81,7 +81,7 @@ declare namespace Bubble {
 
   export interface NodeStyle {
     id: '1' | '2' | '3';
-    options: NodeStyleOption[];
+    options?: NodeStyleOption[];
   }
 
   export interface NodeStyleOption {

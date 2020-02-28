@@ -5,22 +5,25 @@
         class="px-4 py-1"
         :class="[view === 'ast' ? 'bg-blue-600 text-white' : 'bg-gray-300']"
         @click="view = 'ast'"
-      >
-        AST
-      </button>
+      >AST</button>
       <button
         class="px-4 py-1"
         :class="[
           view === 'analysis' ? 'bg-blue-600 text-white' : 'bg-gray-300',
         ]"
         @click="view = 'analysis'"
-      >
-        Analysis
-      </button>
+      >Analysis</button>
+      <button
+        class="px-4 py-1"
+        :class="[
+          view === 'style-tree' ? 'bg-blue-600 text-white' : 'bg-gray-300',
+        ]"
+        @click="view = 'style-tree'"
+      >Style Tree</button>
     </div>
     <pre
       class="bg-gray-200 p-3 overflow-y-auto overflow-x-auto text-sm"
-      v-text="JSON.stringify(view === 'ast' ? ast : analysis, null, '  ')"
+      v-text="JSON.stringify(displayData, null, '  ')"
     ></pre>
   </div>
 </template>
@@ -31,11 +34,24 @@ export default {
   props: {
     ast: Object,
     analysis: Object,
+    styleTree: Array,
   },
   data() {
     return {
       view: 'ast',
     };
+  },
+  computed: {
+    displayData() {
+      if (this.view === 'ast') {
+        return this.ast;
+      } else if (this.view === 'analysis') {
+        return this.analysis;
+      } else if (this.view === 'style-tree') {
+        return this.styleTree;
+      }
+      return null;
+    },
   },
 };
 </script>
